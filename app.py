@@ -33,19 +33,23 @@ def predict():
         if unit_type == 'ft':
             feet = float(data.get('feet') or 0)
             inches = float(data.get('inches') or 0)
-            height_cm = (feet * 30.48) + (inches * 2.54)
+            height_cm = round((feet * 30.48) + (inches * 2.54), 2)
         else:
             height_cm = float(data.get('height_cm'))
 
         if height_cm <= 0 or weight_kg <= 0:
             return jsonify({'status': 'error', 'message': 'Please enter valid positive numbers.'}), 400
 
-        # Model Predict
-        input_data = np.array([[height_cm, weight_kg]])
-        pred_idx = int(model.predict(input_data)[0])
-
-        # Formula BMI
         bmi_value = round(weight_kg / ((height_cm / 100) ** 2), 1)
+
+        # Extreme Case Override (BMI < 15 check)
+        if bmi_value < 15.0:
+            pred_idx = 0  # 0 index par 'Extremely Weak' hai
+        elif 15.0 <= bmi_value < 18.5:
+            pred_idx = 1
+        else:
+            input_data = np.array([[height_cm, weight_kg]])
+            pred_idx = int(model.predict(input_data)[0])
         res_info = CATEGORIES[pred_idx]
 
         return jsonify({
