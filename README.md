@@ -8,7 +8,7 @@ An end-to-end Machine Learning web application built to predict physical health 
 * **AI-Powered Diagnostics**: Real-time classification into health risk categories based on physical parameters.
 * **Dual Height Units**: Seamless support for both **Feet/Inches** and **Centimeters (cm)**.
 * **Interactive Medical UI**: Modern light-themed dashboard built with Tailwind CSS, Font Awesome icons, and animated scale bars.
-* **Instant State Reset**: Built-in "New Patient Checkup" workflow for quick consecutive evaluations.
+* **Instant State Reset**: Built-in "Reset and Analyze Next" workflow for quick consecutive evaluations.
 
 ---
 
